@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import { GlobalValues } from "./utils/constants";
 import { initUserRouter } from "./modules/users/users-router";
-import { initContentRouter } from "./modules/contents/contents-router";
 import { DbClientInstance } from "./libs/mongodb";
 
 export async function createServer() {
@@ -23,8 +22,7 @@ export async function createServer() {
     }));
 
     app.use(GlobalValues.API + GlobalValues.V1 + "/users", initUserRouter());
-    app.use(GlobalValues.API + GlobalValues.V1 + "/contents", initContentRouter());
-
+                                                                                                                                                                                                                                                                                                
     app.listen(port, () => {
         console.log(`server started at http://localhost:${port}`);
     });
