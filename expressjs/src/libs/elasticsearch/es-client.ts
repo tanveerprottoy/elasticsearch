@@ -24,9 +24,17 @@ class EsClient {
     ) {
         try {
             this.client = new Client({
-                cloud: { id: '<cloud-id>' },
-                auth: { apiKey: 'base64EncodedKey' }
+                node: "http://localhost:9200"   
+                // cloud: { id: '<cloud-id>' },
+                // auth: { apiKey: 'base64EncodedKey' }
             });
+            this.client.info()
+                .then(response => console.log(response))
+                .catch(err => {
+                    console.error(err);
+                    this.close();
+                    ErrorUtils.throwError(err);
+                });
         }
         catch(e) {
             this.close();
