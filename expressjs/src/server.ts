@@ -3,10 +3,13 @@ import cors from "cors";
 import { GlobalValues } from "./utils/constants";
 import { initUserRouter } from "./modules/users/users-router";
 import { DbClientInstance } from "./libs/mongodb";
+import { EsClientInstance } from "./libs/elasticsearch";
 
 export async function createServer() {
     // init db
     await DbClientInstance.init(GlobalValues.DB_HOST, GlobalValues.DB_NAME);
+    // init elastic
+    await EsClientInstance.init(GlobalValues.ES_NODE);
     const app: express.Application = express();
     const port: number = GlobalValues.PORT;
 

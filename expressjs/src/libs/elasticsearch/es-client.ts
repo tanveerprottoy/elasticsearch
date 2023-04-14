@@ -19,15 +19,26 @@ class EsClient {
      * @param name - the db name.
      */
     async init(
-        uri: string,
-        name: string
+        node: string,
+        cloud?: {
+            id: string;
+        },
+        auth?: any
     ) {
         try {
-            this.client = new Client({
-                node: "http://localhost:9200"   
+            if(node) {
+                this.client = new Client({
+                    node: node
+                });
+            }
+            else {
                 // cloud: { id: '<cloud-id>' },
                 // auth: { apiKey: 'base64EncodedKey' }
-            });
+                this.client = new Client({
+                    cloud: cloud,
+                    auth: auth
+                });
+            }
             this.client.info()
                 .then(response => console.log(response))
                 .catch(err => {

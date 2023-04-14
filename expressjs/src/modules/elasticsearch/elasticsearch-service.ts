@@ -5,6 +5,7 @@ class ElasticSearchService {
     create = async (
         data: any
     ): Promise<any> => {
+        console.log("elastic.create: ", data);
         const result = await EsOpsInstance.create(
             "user",
             data
@@ -14,14 +15,12 @@ class ElasticSearchService {
     };
 
     search = async (
-        search: string
+        text: string
     ): Promise<any> => {
         const result = await EsOpsInstance.search(
             "user",
             {
-                query: {
-                    match: { name: "abc" }
-                }
+                match: { name: text }
             }
         );
         console.log(result);

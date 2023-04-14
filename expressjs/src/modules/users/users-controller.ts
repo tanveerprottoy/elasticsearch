@@ -23,7 +23,7 @@ class UsersController {
         req: express.Request,
         res: express.Response,
     ): Promise<express.Response> => {
-        return await usersService.search(req.query.search.toString(), res);
+        return await usersService.search(req.query.text.toString(), res);
     };
 }
 

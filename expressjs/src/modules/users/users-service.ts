@@ -12,9 +12,14 @@ class UsersService {
         res: express.Response,
     ): Promise<any> => {
         const result = await usersRepository.create(data);
-        console.log(result);
-        console.log(result.insertedId.toString());
-        const result1 = await elasticsearchService.create(data);
+        // filter out unwanted field, as mongodb client mutates the
+        // passed object
+        const {
+            _id,
+            ...filtered
+        } = data;
+        console.log("filtered: ", filtered)
+        const result1 = await elasticsearchService.create(filtered);
         return ResponseUtils.respond(
             HttpCodes.HTTP_201,
             ResponseUtils.buildData(result.insertedId.toString()),
@@ -34,18 +39,18 @@ class UsersService {
         }
         return ResponseUtils.respond(
             HttpCodes.HTTP_200,
-            docs,
+            ResponseUtils.buildData(docs),
             res,
         );
     };
 
     search = async (
-        search: string,
+        text: string,
         res: express.Response,
     ): Promise<any> => {
         return ResponseUtils.respond(
             HttpCodes.HTTP_200,
-            ResponseUtils.buildData(await elasticsearchService.search(search)),
+            ResponseUtils.buildData(await elasticsearchService.search(text)),
             res
         );
     };
