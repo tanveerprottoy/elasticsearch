@@ -14,10 +14,6 @@ class EsClient {
         }
     }
 
-    /**
-     * @param uri - mongodb uri.
-     * @param name - the db name.
-     */
     async init(
         node: string,
         cloud?: {
