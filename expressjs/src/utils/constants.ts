@@ -1,5 +1,5 @@
 export const GlobalValues = {
-    PORT: 8080,
+    PORT: 8081,
     API: "/api",
     V1: "/v1",
     DB_HOST: "mongodb://localhost:27017",
